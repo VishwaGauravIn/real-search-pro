@@ -2,6 +2,8 @@
 
 A lightweight, security-focused Chrome Extension (Manifest V3) designed for corporate and developer environments to prevent **malvertising** and **search-ad phishing** on Google Search.
 
+![](https://github.com/VishwaGauravIn/real-search-pro/blob/c0fd6844578cbb0e804f68c50dcdd34a58298ecb/store-assets/screenshot-1-hero-1280x800.png)
+
 ## About
 
 Attackers frequently purchase sponsored search placements targeting developer tools and software queries (such as package managers, CLI tools, crypto wallets, or enterprise SaaS logins). These sponsored results appear above legitimate organic search results and mimic official websites to trick engineers or finance employees into installing malware or infostealers.
