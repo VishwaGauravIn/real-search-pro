@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RealSearchPro</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <main class="shell" id="appShell">
+    <!-- Top Header & Prestigious "Protected Since" Crest -->
+    <header class="header">
+      <div class="brand">
+        <img src="icons/icon32.png" alt="RealSearchPro" class="brand-logo" />
+        <span class="brand-title">RealSearchPro</span>
+        <span class="status-indicator"></span>
+      </div>
+
+      <div class="prestige-crest" title="Active installation date">
+        <span class="prestige-shimmer"></span>
+        <svg class="prestige-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+          <path
+            d="M8 1.25L9.85 5.15L14.15 5.72L11 8.74L11.78 13.02L8 10.95L4.22 13.02L5 8.74L1.85 5.72L6.15 5.15L8 1.25Z"
+            fill="url(#crestGold)"
+          />
+          <defs>
+            <linearGradient id="crestGold" x1="2" y1="1" x2="14" y2="13" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#FDE68A" />
+              <stop offset="50%" stop-color="#F59E0B" />
+              <stop offset="100%" stop-color="#D97706" />
+            </linearGradient>
+          </defs>
+        </svg>
+        <span class="prestige-text" id="protectedSinceText">Since Nov 5, 2026</span>
+      </div>
+    </header>
+
+    <!-- Primary Toggle Control -->
+    <section class="control-card">
+      <div class="control-info">
+        <div class="control-title-row">
+          <h1 class="control-title" id="statusTitle">Protection Active</h1>
+        </div>
+        <p class="control-subtitle" id="statusText">Sponsored search results are hidden</p>
+      </div>
+
+      <label class="switch" title="Toggle protection">
+        <input type="checkbox" id="toggleEnabled" checked />
+        <span class="switch-track">
+          <span class="switch-thumb"></span>
+        </span>
+      </label>
+    </section>
+
+    <!-- Unified Analytics Surface (4-Metric Strip + Searches + 7-Day Chart) -->
+    <section class="analytics-surface">
+      <!-- 4-Column Hairline Metric Grid -->
+      <div class="metrics-strip">
+        <div class="metric-cell">
+          <span class="metric-label">Today</span>
+          <span class="metric-val" id="todayBlocked">0</span>
+        </div>
+        <div class="metric-cell">
+          <span class="metric-label">7 Days</span>
+          <span class="metric-val" id="weekBlocked">0</span>
+        </div>
+        <div class="metric-cell">
+          <span class="metric-label">30 Days</span>
+          <span class="metric-val" id="monthBlocked">0</span>
+        </div>
+        <div class="metric-cell">
+          <span class="metric-label">Total</span>
+          <span class="metric-val" id="totalBlocked">0</span>
+        </div>
+      </div>
+
+      <!-- 7-Day Activity & Searches Guarded -->
+      <div class="chart-pane">
+        <div class="chart-header">
+          <span class="pane-label">Last 7 Days</span>
+          <span class="searches-stat">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+              <circle cx="7" cy="7" r="4.5"></circle>
+              <path d="M10.5 10.5L14 14"></path>
+            </svg>
+            <span><strong id="searchesProtected">0</strong> searches guarded</span>
+          </span>
+        </div>
+
+        <div class="bars-grid" id="barsRow"></div>
+      </div>
+    </section>
+
+    <!-- Top Blocked Domains (Rolling 30 Days) -->
+    <section class="domains-surface">
+      <div class="domains-header">
+        <span class="pane-label">Top Blocked Domains</span>
+        <span class="pane-meta">Rolling 30d</span>
+      </div>
+      <div class="domains-list" id="domainsList">
+        <div class="domains-empty">No sponsored domains blocked yet</div>
+      </div>
+    </section>
+  </main>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "real-search-pro",
+  "version": "1.0.0",
+  "private": true,
+  "description": "RealSearchPro - Block Sponsored Search Results",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  }
+}
+

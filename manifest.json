@@ -1,0 +1,71 @@
+{
+  "manifest_version": 3,
+  "name": "RealSearchPro - Block Sponsored Search Results",
+  "version": "1.0.0",
+  "description": "Protects against malvertising and phishing attacks by blocking sponsored search results on Google Search.",
+  "permissions": [
+    "storage"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "RealSearchPro",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png",
+      "512": "icons/icon512.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png",
+    "512": "icons/icon512.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.google.com/*",
+        "https://www.google.co.in/*",
+        "https://www.google.co.uk/*",
+        "https://www.google.ca/*",
+        "https://www.google.com.au/*",
+        "https://www.google.de/*",
+        "https://www.google.fr/*",
+        "https://www.google.co.jp/*",
+        "https://www.google.com.sg/*",
+        "https://www.google.ae/*",
+        "https://www.google.nl/*",
+        "https://www.google.it/*",
+        "https://www.google.es/*",
+        "https://www.google.com.br/*",
+        "https://www.google.ch/*",
+        "https://www.google.se/*",
+        "https://www.google.pl/*",
+        "https://www.google.be/*",
+        "https://www.google.at/*",
+        "https://www.google.ie/*",
+        "https://www.google.co.nz/*",
+        "https://www.google.co.za/*",
+        "https://www.google.co.kr/*",
+        "https://www.google.com.hk/*",
+        "https://www.google.com.mx/*",
+        "https://www.google.co.id/*",
+        "https://www.google.com.my/*",
+        "https://www.google.com.ph/*",
+        "https://www.google.co.th/*",
+        "https://www.google.com.vn/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_start"
+    }
+  ]
+}
+

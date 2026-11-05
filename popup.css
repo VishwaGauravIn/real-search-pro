@@ -1,0 +1,509 @@
+/* Default: Dark Mode (#121212 Primary Background) */
+:root {
+  color-scheme: dark light;
+  --bg-canvas: #121212;
+  --bg-surface: #18181b;
+  --bg-surface-elevated: #1f1f23;
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-strong: rgba(255, 255, 255, 0.11);
+  --top-shine: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  --text-primary: #fafafa;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+
+  --accent: #10b981;
+  --accent-bright: #34d399;
+  --accent-muted: rgba(16, 185, 129, 0.14);
+
+  --paused: #f59e0b;
+
+  /* Luxury Champagne / Gold Prestige Badge */
+  --crest-bg: linear-gradient(135deg, rgba(251, 191, 36, 0.12) 0%, rgba(24, 24, 27, 0.9) 55%, rgba(217, 119, 6, 0.15) 100%);
+  --crest-border: rgba(251, 191, 36, 0.32);
+  --crest-text: #fde68a;
+  --crest-glow: 0 2px 10px rgba(245, 158, 11, 0.12);
+
+  --switch-off: #27272a;
+  --bar-track: rgba(255, 255, 255, 0.05);
+  --bar-inactive: rgba(255, 255, 255, 0.16);
+}
+
+/* Automatic Light Mode based on System Preference */
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-canvas: #f4f4f5;
+    --bg-surface: #ffffff;
+    --bg-surface-elevated: #fafafa;
+    --border-subtle: rgba(24, 24, 27, 0.07);
+    --border-strong: rgba(24, 24, 27, 0.1);
+    --top-shine: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+    --text-primary: #09090b;
+    --text-secondary: #52525b;
+    --text-muted: #71717a;
+
+    --accent: #059669;
+    --accent-bright: #10b981;
+    --accent-muted: rgba(16, 185, 129, 0.12);
+
+    --paused: #d97706;
+
+    --crest-bg: linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fde68a 100%);
+    --crest-border: rgba(217, 119, 6, 0.35);
+    --crest-text: #92400e;
+    --crest-glow: 0 2px 8px rgba(217, 119, 6, 0.1);
+
+    --switch-off: #d4d4d8;
+    --bar-track: rgba(24, 24, 27, 0.05);
+    --bar-inactive: rgba(24, 24, 27, 0.15);
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Hide scrollbars completely */
+::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+html,
+body {
+  width: 348px;
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "SF Pro Text", "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  scrollbar-width: none;
+  user-select: none;
+}
+
+.shell {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: var(--bg-canvas);
+}
+
+/* Top Header + Prestige Crest */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.brand-logo {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  display: block;
+}
+
+.status-indicator {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--accent-bright);
+  box-shadow: 0 0 8px var(--accent-bright);
+  transition: all 0.2s ease;
+}
+
+.shell.is-paused .status-indicator {
+  background-color: var(--paused);
+  box-shadow: none;
+}
+
+.brand-title {
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+}
+
+/* Prestigious "Protected Since" Crest Badge */
+.prestige-crest {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px 4px 7px;
+  border-radius: 999px;
+  background: var(--crest-bg);
+  border: 1px solid var(--crest-border);
+  box-shadow: var(--crest-glow), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  overflow: hidden;
+}
+
+.prestige-shimmer {
+  position: absolute;
+  top: 0;
+  left: -130%;
+  width: 70%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.22) 50%,
+    transparent 80%
+  );
+  animation: crestShine 6s infinite ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes crestShine {
+  0% {
+    left: -130%;
+  }
+  40%, 100% {
+    left: 160%;
+  }
+}
+
+.prestige-icon {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.4));
+}
+
+.prestige-text {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--crest-text);
+  white-space: nowrap;
+}
+
+/* Primary Control Card */
+.control-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 14px;
+  border-radius: 12px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--top-shine);
+}
+
+.control-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.control-title {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.control-subtitle {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+}
+
+/* Minimal Switch */
+.switch {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.switch input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-track {
+  width: 40px;
+  height: 22px;
+  background-color: var(--switch-off);
+  border-radius: 999px;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.switch-thumb {
+  width: 18px;
+  height: 18px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.switch input:checked + .switch-track {
+  background-color: var(--accent);
+}
+
+.switch input:checked + .switch-track .switch-thumb {
+  transform: translateX(18px);
+}
+
+/* Unified Analytics Surface (Linear / Stripe style hairline grid) */
+.analytics-surface {
+  border-radius: 12px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--top-shine);
+  overflow: hidden;
+}
+
+.metrics-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.metric-cell {
+  padding: 11px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.metric-cell + .metric-cell {
+  border-left: 1px solid var(--border-subtle);
+}
+
+.metric-label {
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.metric-val {
+  font-size: 18px;
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+/* 7-Day Activity Chart Pane */
+.chart-pane {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pane-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-secondary);
+}
+
+.searches-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.searches-stat svg {
+  width: 12px;
+  height: 12px;
+  color: var(--accent-bright);
+}
+
+.searches-stat strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.bars-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  align-items: end;
+  padding-top: 2px;
+}
+
+.bar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.bar-count {
+  font-size: 9.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+  height: 11px;
+  line-height: 11px;
+}
+
+.bar-item.is-today .bar-count {
+  color: var(--accent-bright);
+}
+
+.bar-pill-track {
+  width: 10px;
+  height: 38px;
+  border-radius: 999px;
+  background-color: var(--bar-track);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.bar-pill-fill {
+  width: 100%;
+  border-radius: 999px;
+  background-color: var(--bar-inactive);
+  min-height: 4px;
+  transition: height 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.bar-item.has-activity .bar-pill-fill {
+  background-color: var(--accent);
+}
+
+.bar-item.is-today .bar-pill-fill {
+  background-color: var(--accent-bright);
+}
+
+.bar-day-label {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.bar-item.is-today .bar-day-label {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Top Blocked Domains Surface */
+.domains-surface {
+  border-radius: 12px;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--top-shine);
+  padding: 11px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.domains-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pane-meta {
+  font-size: 10.5px;
+  color: var(--text-muted);
+}
+
+.domains-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.domains-empty {
+  font-size: 11.5px;
+  color: var(--text-muted);
+  padding: 4px 0 2px;
+}
+
+.domain-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12px;
+  padding: 2px 0;
+}
+
+.domain-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.domain-rank {
+  font-size: 10px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+  width: 14px;
+}
+
+.domain-name {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 185px;
+}
+
+.domain-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.domain-mini-bar {
+  width: 44px;
+  height: 4px;
+  border-radius: 999px;
+  background-color: var(--bar-track);
+  overflow: hidden;
+}
+
+.domain-mini-fill {
+  height: 100%;
+  border-radius: 999px;
+  background-color: var(--accent);
+}
+
+.domain-hits {
+  font-size: 11.5px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-secondary);
+  min-width: 16px;
+  text-align: right;
+}
