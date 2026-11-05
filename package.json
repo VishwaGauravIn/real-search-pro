@@ -1,6 +1,6 @@
 {
   "name": "real-search-pro",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "RealSearchPro - Block Sponsored Search Results",
   "scripts": {
@@ -10,4 +10,3 @@
     "esbuild": "^0.25.0"
   }
 }
-

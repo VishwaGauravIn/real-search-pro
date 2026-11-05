@@ -507,3 +507,47 @@ body {
   min-width: 16px;
   text-align: right;
 }
+
+/* Subtle Open-Source Footer */
+.oss-footer {
+  display: flex;
+  justify-content: center;
+  padding-top: 2px;
+}
+
+.oss-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 3px 8px;
+  border-radius: 999px;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.oss-link:hover {
+  color: var(--text-primary);
+  background-color: var(--bar-track);
+}
+
+.oss-icon {
+  width: 12px;
+  height: 12px;
+  opacity: 0.8;
+}
+
+.oss-arrow {
+  width: 10px;
+  height: 10px;
+  opacity: 0.6;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.oss-link:hover .oss-arrow {
+  transform: translate(1px, -1px);
+  opacity: 1;
+}
+

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "RealSearchPro - Block Sponsored Search Results",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Protects against malvertising and phishing attacks by blocking sponsored search results on Google Search.",
   "permissions": [
     "storage"
@@ -68,4 +68,3 @@
     }
   ]
 }
-

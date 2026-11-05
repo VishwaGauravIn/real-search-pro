@@ -6,6 +6,24 @@ const esbuild = require('esbuild');
 const ROOT = __dirname;
 const DIST = path.join(ROOT, 'dist');
 
+function bumpVersion(versionStr, bumpType = 'patch') {
+  const parts = (versionStr || '1.0.0').split('.').map((n) => parseInt(n, 10) || 0);
+  while (parts.length < 3) parts.push(0);
+
+  if (bumpType === 'major') {
+    parts[0] += 1;
+    parts[1] = 0;
+    parts[2] = 0;
+  } else if (bumpType === 'minor') {
+    parts[1] += 1;
+    parts[2] = 0;
+  } else {
+    parts[2] += 1;
+  }
+
+  return parts.join('.');
+}
+
 function minifyHtml(html) {
   return html
     .replace(/<!--[\s\S]*?-->/g, '')
@@ -14,9 +32,26 @@ function minifyHtml(html) {
 }
 
 async function build() {
-  const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, 'manifest.json'), 'utf8'));
-  const version = manifest.version || '1.0.0';
-  const zipName = `RealSearchPro_v${version}.zip`;
+  const manifestPath = path.join(ROOT, 'manifest.json');
+  const pkgPath = path.join(ROOT, 'package.json');
+
+  const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+  const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+
+  // Determine version bump type (default: 'patch'; supports `npm run build -- minor` or `major`)
+  const arg = (process.argv[2] || 'patch').toLowerCase();
+  const bumpType = ['major', 'minor', 'patch'].includes(arg) ? arg : 'patch';
+
+  const prevVersion = manifest.version || pkg.version || '1.0.0';
+  const nextVersion = bumpVersion(prevVersion, bumpType);
+
+  manifest.version = nextVersion;
+  pkg.version = nextVersion;
+
+  fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + '\n');
+  fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
+
+  const zipName = `RealSearchPro_v${nextVersion}.zip`;
   const zipPath = path.join(ROOT, zipName);
 
   // 1. Clean and recreate dist/
@@ -69,6 +104,7 @@ async function build() {
 
   const zipStat = fs.statSync(zipPath);
   const sizeKb = (zipStat.size / 1024).toFixed(1);
+  console.log(`✅ Version bumped: ${prevVersion} → ${nextVersion}`);
   console.log(`✅ Built dist/ and packaged ${zipName} (${sizeKb} KB)`);
 }
 
@@ -76,4 +112,3 @@ build().catch((err) => {
   console.error('Build failed:', err);
   process.exit(1);
 });
-
